@@ -1548,8 +1548,7 @@ function slice(arr){
     
 }
 
-let result  = new Date(1718647200 * 1000)
-console.log(result);
+
 
 // let newData = slice(datas);
 // console.log(findMin(datas));
@@ -1568,7 +1567,8 @@ const l = mergedArray(datas)
 
 console.log(l.length);
 
-let a = 1718528400
+let a = 1719759600
 
-let date = new Date(a * 1000).getMonth();
-console.log("date===",date)
+let date = new Date(a* 1000).toString();
+console.log(date);
+console.log("date===",date.slice(16,21))

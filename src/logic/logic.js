@@ -35,3 +35,8 @@ export const getDayAndMonth = (ele) => {
     return  date + "/" + month;
 }
 
+
+export const getDataHours = (time) => { 
+     let newTime = new Date(time * 1000).getUTCDate();
+     return newTime;
+}

@@ -35,11 +35,14 @@ export const weatherSlice = createSlice({
       state.lat = lat;
       state.lon = lon;
     },
+    setLoading: (state,action) => {
+      state.isLoading = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchWeatherData.fulfilled, (state, action) => {
-        state.isLoading = false;
+        
         // add date property
         let data = action.payload.list.map((item) => {
           delete item.wind;
@@ -70,6 +73,8 @@ export const weatherSlice = createSlice({
           });
         });
         console.log("this is sub data",[...state.subdata]);
+        
+    
       })
       .addCase(fetchWeatherData.rejected, (state, action) => {
         state.isLoading = false;
@@ -80,6 +85,6 @@ export const weatherSlice = createSlice({
       });
   },
 });
-export const { handleLatLong } = weatherSlice.actions;
+export const { handleLatLong , setLoading } = weatherSlice.actions;
 
 export default weatherSlice.reducer;

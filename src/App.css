@@ -4,6 +4,8 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .logo {
@@ -44,4 +46,9 @@
 
 .container { 
   width: 1440px;
+}
+
+canvas { 
+
+  width: 100% !important;
 }
