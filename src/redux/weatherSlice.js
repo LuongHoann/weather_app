@@ -5,6 +5,7 @@ import { getDayAndMonth, findMaxTemp, findMinTemp } from "../logic/logic";
 const initialState = {
   data: [],
   subdata: [],
+  diagramData: [],
   lat: 21.028511,
   lon: 105.804817,
   isLoading: false,
@@ -38,6 +39,14 @@ export const weatherSlice = createSlice({
     setLoading: (state,action) => {
       state.isLoading = action.payload;
     },
+    // diagramData 
+
+   handleDiagram: (state, action) => { 
+    state.diagramData = [];
+    state.diagramData = state.data[action.payload];
+   }
+
+
   },
   extraReducers: (builder) => {
     builder
@@ -57,7 +66,7 @@ export const weatherSlice = createSlice({
         // merge each 8 items into 1 array
         let mergedData = mergedArray(data);
         // console.log(mergedData.length); // check length
-        // console.log("merged data ", mergedData);
+        console.log("merged data ", mergedData);
         state.data = mergedData;
 
         // subdata
@@ -72,8 +81,12 @@ export const weatherSlice = createSlice({
             icon: item[0].weather[0].icon,
           });
         });
-        console.log("this is sub data",[...state.subdata]);
-        
+        // console.log("this is sub data",[...state.subdata]);
+        // diagramData 
+
+        state.diagramData = [];
+        state.diagramData = mergedData[0]; 
+        console.log(state.diagramData);
     
       })
       .addCase(fetchWeatherData.rejected, (state, action) => {
@@ -83,8 +96,12 @@ export const weatherSlice = createSlice({
       .addCase(fetchWeatherData.pending, (state, action) => {
         state.isLoading = true;
       });
+
+      // diagramData 
+
+      
   },
 });
-export const { handleLatLong , setLoading } = weatherSlice.actions;
+export const { handleLatLong , setLoading , handleDiagram } = weatherSlice.actions;
 
 export default weatherSlice.reducer;

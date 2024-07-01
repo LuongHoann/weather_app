@@ -1,14 +1,15 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import Item from "./Item"
+import { handleDiagram } from "../redux/weatherSlice";
 
 export default function List(props) {
-
+    let dispatch = useDispatch();
     let data = useSelector((state) => state.weather.subdata)
     
     return (
         <div style={{display:'flex' ,  justifyContent: 'space-between'}}>
             {Object.keys(data).map((item,index) => (
-                <Item key={index} data={data[item]}/>
+                <Item key={index} data={data[item]} onClick = {()=>dispatch(handleDiagram(index))}/>
             ))}
         </div>
     )

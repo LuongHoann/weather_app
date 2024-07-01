@@ -13,7 +13,6 @@ import {
 import { Line } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { useSelector } from "react-redux";
-import { getDataHours } from "../logic/logic";
 
 ChartJS.register(
   CategoryScale,
@@ -41,7 +40,7 @@ const backgroundPlugin = {
 const options = {
   responsive: true,
   maintainAspectRatio: true,
-  aspectRatio : 6,
+  aspectRatio : 5.5,
   plugins: {
     legend: {
       display: false,
@@ -75,6 +74,8 @@ const options = {
       },
     },
     y: {
+      suggestedMin: 10,
+      suggestedMax: 40,
       ticks : { 
           display: false,
       },
@@ -88,7 +89,7 @@ const options = {
       // hitRadius:100,
     },
     line: {
-      tension: 0.3,
+      tension: 0.5,
     },
   },
   interaction: {
@@ -100,17 +101,22 @@ const options = {
 export function DashBoard() {
   const chartRef = useRef(null);
   const weatherData = useSelector((state) => state.weather.data);
+
+  const diagramData = useSelector((state) => state.weather.diagramData);
+  console.log(diagramData);
   const [labels, setLabels] = useState([]);
+
 
   useEffect(() => {
     if (weatherData && weatherData[0]) {
-      console.log(weatherData[0]);
+      // console.log(weatherData[0]);
       setLabels(
         weatherData[0].map((item) =>
           new Date(item.dt * 1000).toString().slice(16, 21)
         )
       );
     }
+   
   }, [weatherData]);
 
   const data = {
@@ -118,7 +124,8 @@ export function DashBoard() {
     datasets: [
       {
         fill: true,
-        data: labels.map(() => Math.floor(Math.random() * 40)), // Replace with your data
+        data: diagramData.map((item)=> Math.round(item.main.temp)), // Replace with your data
+    
         borderColor: "rgba(222, 150, 18, 1)",
         backgroundColor: "rgba(222, 150, 18, 0.5)",
       },
@@ -135,10 +142,11 @@ export function DashBoard() {
     );
     if (points.length) {
       const firstPoint = points[0];
+      const index = firstPoint.index;
       const label = chart.data.labels[firstPoint.index];
       const value =
         chart.data.datasets[firstPoint.datasetIndex].data[firstPoint.index];
-      console.log({ label, value });
+      console.log({ index,label, value });
     }
   };
 

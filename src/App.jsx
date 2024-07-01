@@ -31,7 +31,7 @@ export default function App() {
         <div className="container">
           <div className="dashboard">
             <img src="" alt="" />
-            <p>Temperature: </p>
+            <p>Temperature:</p>
             <DashBoard/>
           </div>
           <List />

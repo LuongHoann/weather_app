@@ -46,3 +46,7 @@ h1 {
     background-color: #fff;
     box-shadow: 10px 10px 15px -3px grey;
 }
+/* item  */
+.item:active  { 
+  background-color: #ccc;
+}
