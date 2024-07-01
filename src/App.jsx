@@ -4,13 +4,15 @@ import List from "./component/List";
 import { fetchWeatherData, setLoading } from "./redux/weatherSlice";
 import Loading from "./component/Loading";
 import { DashBoard } from "./component/DashBoard";
+import { Header } from "./component/Header";
 import "./App.css";
 
 export default function App() {
   let isLoading = useSelector((state) => state.weather.isLoading);
   let lat = useSelector((state) => state.weather.lat);
   let lon = useSelector((state) => state.weather.lon);
-
+  let dataByPoint = useSelector((state) => state.weather.dataByPoint);
+console.log(dataByPoint);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,8 +32,7 @@ export default function App() {
       ) : (
         <div className="container">
           <div className="dashboard">
-            <img src="" alt="" />
-            <p>Temperature:</p>
+            <Header dataByPoint={dataByPoint}/>
             <DashBoard/>
           </div>
           <List />

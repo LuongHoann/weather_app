@@ -47,6 +47,10 @@ h1 {
     box-shadow: 10px 10px 15px -3px grey;
 }
 /* item  */
+.item { 
+  border : 2px solid transparent;
+  border-radius: 30px;
+}
 .item:active  { 
-  background-color: #ccc;
+ border: 2px solid blue;
 }

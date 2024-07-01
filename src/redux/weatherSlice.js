@@ -6,6 +6,7 @@ const initialState = {
   data: [],
   subdata: [],
   diagramData: [],
+  dataByPoint: [],
   lat: 21.028511,
   lon: 105.804817,
   isLoading: false,
@@ -36,25 +37,26 @@ export const weatherSlice = createSlice({
       state.lat = lat;
       state.lon = lon;
     },
-    setLoading: (state,action) => {
+    setLoading: (state, action) => {
       state.isLoading = action.payload;
     },
-    // diagramData 
+    // diagramData
 
-   handleDiagram: (state, action) => { 
-    state.diagramData = [];
-    state.diagramData = state.data[action.payload];
-   }
+    handleDiagram: (state, action) => {
+      state.diagramData = [];
+      state.diagramData = state.data[action.payload];
 
-
+      console.table(state.diagramData);
+    },
+    handleInfoByPoint: (state, action) => {
+      state.dataByPoint = state.diagramData[action.payload];
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchWeatherData.fulfilled, (state, action) => {
-        
         // add date property
         let data = action.payload.list.map((item) => {
-          delete item.wind;
           delete item.clouds;
           delete item.visibility;
           delete item.rain;
@@ -72,22 +74,20 @@ export const weatherSlice = createSlice({
         // subdata
         state.subdata = [];
         mergedData.forEach((item) => {
-          
           state.subdata.push({
             date: getDayAndMonth(item[0]),
             max_temp: findMaxTemp(item),
             min_temp: findMinTemp(item),
-            weather : item[0].weather[0].main,
+            weather: item[0].weather[0].main,
             icon: item[0].weather[0].icon,
           });
         });
-        // console.log("this is sub data",[...state.subdata]);
-        // diagramData 
+
+        // diagramData
 
         state.diagramData = [];
-        state.diagramData = mergedData[0]; 
-        console.log(state.diagramData);
-    
+        state.diagramData = mergedData[0];
+        state.dataByPoint = state.diagramData[0];
       })
       .addCase(fetchWeatherData.rejected, (state, action) => {
         state.isLoading = false;
@@ -97,11 +97,10 @@ export const weatherSlice = createSlice({
         state.isLoading = true;
       });
 
-      // diagramData 
-
-      
+    // diagramData
   },
 });
-export const { handleLatLong , setLoading , handleDiagram } = weatherSlice.actions;
+export const { handleLatLong, setLoading, handleDiagram, handleInfoByPoint } =
+  weatherSlice.actions;
 
 export default weatherSlice.reducer;

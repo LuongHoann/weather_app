@@ -12,7 +12,8 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {handleInfoByPoint} from "../redux/weatherSlice"
 
 ChartJS.register(
   CategoryScale,
@@ -40,7 +41,7 @@ const backgroundPlugin = {
 const options = {
   responsive: true,
   maintainAspectRatio: true,
-  aspectRatio : 5.5,
+  aspectRatio: 5.5,
   plugins: {
     legend: {
       display: false,
@@ -76,8 +77,8 @@ const options = {
     y: {
       suggestedMin: 10,
       suggestedMax: 40,
-      ticks : { 
-          display: false,
+      ticks: {
+        display: false,
       },
       grid: {
         display: false,
@@ -95,17 +96,18 @@ const options = {
   interaction: {
     mode: "nearest",
   },
-
 };
 
 export function DashBoard() {
+
+
   const chartRef = useRef(null);
   const weatherData = useSelector((state) => state.weather.data);
 
   const diagramData = useSelector((state) => state.weather.diagramData);
-  console.log(diagramData);
   const [labels, setLabels] = useState([]);
 
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (weatherData && weatherData[0]) {
@@ -116,7 +118,6 @@ export function DashBoard() {
         )
       );
     }
-   
   }, [weatherData]);
 
   const data = {
@@ -124,8 +125,8 @@ export function DashBoard() {
     datasets: [
       {
         fill: true,
-        data: diagramData.map((item)=> Math.round(item.main.temp)), // Replace with your data
-    
+        data: diagramData.map((item) => Math.round(item.main.temp)), // Replace with your data
+
         borderColor: "rgba(222, 150, 18, 1)",
         backgroundColor: "rgba(222, 150, 18, 0.5)",
       },
@@ -146,7 +147,9 @@ export function DashBoard() {
       const label = chart.data.labels[firstPoint.index];
       const value =
         chart.data.datasets[firstPoint.datasetIndex].data[firstPoint.index];
-      console.log({ index,label, value });
+      // dispatch(handleDiagram(index))
+      console.log({ index, label, value });
+      dispatch(handleInfoByPoint(index));
     }
   };
 
