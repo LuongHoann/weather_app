@@ -90,10 +90,11 @@ export const weatherSlice = createSlice({
         });
 
         // diagramData
-
         state.diagramData = [];
         state.diagramData = mergedData[0];
         state.dataByPoint = state.diagramData[0];
+
+        // update the default value of diagram 
       })
       .addCase(fetchWeatherData.rejected, (state, action) => {
         state.isLoading = false;

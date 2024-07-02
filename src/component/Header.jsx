@@ -11,7 +11,7 @@ export const Header = ({ dataByPoint }) => {
             <p>Temperature: {Math.round(dataByPoint?.main.temp)} <sup>o</sup>C</p>
             <p>{dataByPoint.weather[0].description}</p>
             <p>Humidity : {dataByPoint.main.humidity} % </p>
-            <p>Wind : { Math.round(dataByPoint.wind.speed * 1000 / 60)} km/h </p>
+            <p>Wind : { Math.round(dataByPoint.wind.speed / 1000 * 3600)} km/h </p>
         </div>
     );
 };
