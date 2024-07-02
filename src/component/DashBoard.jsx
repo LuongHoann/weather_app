@@ -58,11 +58,11 @@ const options = {
       },
       align: "end",
       offset: 10,
-      labels: {
-        title: {
-          color: "grey",
-        },
-      },
+      // labels: {
+      //   title: {
+      //     color: "grey",
+      //   },
+      // },
     },
     tooltip: {
       enabled: false,
@@ -106,6 +106,7 @@ export function DashBoard() {
 
   const diagramData = useSelector((state) => state.weather.diagramData);
   const [labels, setLabels] = useState([]);
+  const [clickedPointIndex, setClickedPointIndex] = useState(0);
 
   const dispatch = useDispatch();
 
@@ -126,9 +127,13 @@ export function DashBoard() {
       {
         fill: true,
         data: diagramData.map((item) => Math.round(item.main.temp)), // Replace with your data
-
         borderColor: "rgba(222, 150, 18, 1)",
         backgroundColor: "rgba(222, 150, 18, 0.5)",
+        datalabels: {
+          color: (context) => {
+            return context.dataIndex === clickedPointIndex ? 'white' : 'grey';
+          },
+        },
       },
     ],
   };
@@ -143,13 +148,16 @@ export function DashBoard() {
     );
     if (points.length) {
       const firstPoint = points[0];
+      
       const index = firstPoint.index;
       const label = chart.data.labels[firstPoint.index];
       const value =
         chart.data.datasets[firstPoint.datasetIndex].data[firstPoint.index];
       // dispatch(handleDiagram(index))
+      console.log("data check",chart.data.datasets[firstPoint.datasetIndex])
       console.log({ index, label, value });
-      dispatch(handleInfoByPoint(index));
+      setClickedPointIndex(index)
+      dispatch(handleInfoByPoint(clickedPointIndex));
     }
   };
 
