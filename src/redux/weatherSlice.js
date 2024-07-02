@@ -7,6 +7,7 @@ const initialState = {
   subdata: [],
   diagramData: [],
   dataByPoint: [],
+  defaultIndex:0,
   lat: 21.028511,
   lon: 105.804817,
   isLoading: false,
@@ -40,17 +41,22 @@ export const weatherSlice = createSlice({
     setLoading: (state, action) => {
       state.isLoading = action.payload;
     },
+    setDefaultIndex: (state,action) => { 
+        state.defaultIndex = action.payload;
+    },
     // diagramData
 
     handleDiagram: (state, action) => {
       state.diagramData = [];
       state.diagramData = state.data[action.payload];
-
-      console.table(state.diagramData);
+      state.dataByPoint = state.diagramData[0];
+      state.defaultIndex = 0;
+      
     },
     handleInfoByPoint: (state, action) => {
       state.dataByPoint = state.diagramData[action.payload];
     },
+
   },
   extraReducers: (builder) => {
     builder
@@ -100,7 +106,7 @@ export const weatherSlice = createSlice({
     // diagramData
   },
 });
-export const { handleLatLong, setLoading, handleDiagram, handleInfoByPoint } =
+export const { handleLatLong, setLoading, handleDiagram, handleInfoByPoint , setDefaultIndex} =
   weatherSlice.actions;
 
 export default weatherSlice.reducer;

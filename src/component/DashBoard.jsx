@@ -13,7 +13,7 @@ import {
 import { Line } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { useDispatch, useSelector } from "react-redux";
-import {handleInfoByPoint} from "../redux/weatherSlice"
+import {handleInfoByPoint ,setDefaultIndex} from "../redux/weatherSlice"
 
 ChartJS.register(
   CategoryScale,
@@ -106,7 +106,7 @@ export function DashBoard() {
 
   const diagramData = useSelector((state) => state.weather.diagramData);
   const [labels, setLabels] = useState([]);
-  const [clickedPointIndex, setClickedPointIndex] = useState(0);
+  let hitedIndex = useSelector((state)=> state.weather.defaultIndex);
 
   const dispatch = useDispatch();
 
@@ -115,11 +115,13 @@ export function DashBoard() {
       // console.log(weatherData[0]);
       setLabels(
         weatherData[0].map((item) =>
-          new Date(item.dt * 1000).toString().slice(16, 21)
+          new Date(item.dt * 1000).toString().slice(16, 21) // only get date/month of data | eg: Sun Jun 30 2024 22:00:00 GMT+0700 
         )
       );
     }
   }, [weatherData]);
+
+
 
   const data = {
     labels,
@@ -131,14 +133,14 @@ export function DashBoard() {
         backgroundColor: "rgba(222, 150, 18, 0.5)",
         datalabels: {
           color: (context) => {
-            return context.dataIndex === clickedPointIndex ? 'white' : 'grey';
+            return context.dataIndex === hitedIndex ? 'white' : 'grey';
           },
         },
       },
     ],
   };
 
-  const handleGetData = (event) => {
+  const handleGetData = async (event) => {
     const chart = chartRef.current;
     const points = chart.getElementsAtEventForMode(
       event,
@@ -156,8 +158,8 @@ export function DashBoard() {
       // dispatch(handleDiagram(index))
       console.log("data check",chart.data.datasets[firstPoint.datasetIndex])
       console.log({ index, label, value });
-      setClickedPointIndex(index)
-      dispatch(handleInfoByPoint(clickedPointIndex));
+      await dispatch(setDefaultIndex(index));
+      dispatch(handleInfoByPoint(index));
     }
   };
 
