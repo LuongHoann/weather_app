@@ -71,10 +71,10 @@ export const weatherSlice = createSlice({
           return { ...item, date: getDayAndMonth(item) };
         });
         // merge each 8 items into 1 array
-        console.log(data);
+        // console.log(data);
         let mergedData = groupedData(data);
         // console.log(mergedData.length); // check length
-        console.log("merged data ", mergedData);
+        // console.log("merged data ", mergedData);
         state.data = mergedData;
 
         // subdata
