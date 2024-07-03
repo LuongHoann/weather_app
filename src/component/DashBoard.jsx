@@ -13,7 +13,7 @@ import {
 import { Line } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { useDispatch, useSelector } from "react-redux";
-import {handleInfoByPoint ,setDefaultIndex} from "../redux/weatherSlice"
+import { handleInfoByPoint, setDefaultIndex } from "../redux/weatherSlice";
 
 ChartJS.register(
   CategoryScale,
@@ -42,6 +42,9 @@ const options = {
   responsive: true,
   maintainAspectRatio: true,
   aspectRatio: 5.5,
+  animation: {
+    duration: 4000,
+  },
   plugins: {
     legend: {
       display: false,
@@ -99,46 +102,28 @@ const options = {
 };
 
 export function DashBoard() {
-
-
   const chartRef = useRef(null);
-  const weatherData = useSelector((state) => state.weather.data);
-
-  const diagramData = useSelector((state) => state.weather.diagramData);
+  const [isDataLoaded, setIsDataLoaded] = useState(false); // State to track data loading
   const [labels, setLabels] = useState([]);
-  let hitedIndex = useSelector((state)=> state.weather.defaultIndex);
 
+
+  const weatherData = useSelector((state) => state.weather.data);
+  const diagramData = useSelector((state) => state.weather.diagramData);
+  let hitedIndex = useSelector((state) => state.weather.defaultIndex);
+
+  //
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (weatherData && weatherData[0]) {
-      // console.log(weatherData[0]);
       setLabels(
-        weatherData[0].map((item) =>
-          new Date(item.dt * 1000).toString().slice(16, 21) // only get date/month of data | eg: Sun Jun 30 2024 22:00:00 GMT+0700 
+        weatherData[0].map(
+          (item) => new Date(item.dt * 1000).toString().slice(16, 21)
         )
       );
+      setIsDataLoaded(true); // Mark data as loaded once it's fetched
     }
   }, [weatherData]);
-
-
-
-  const data = {
-    labels,
-    datasets: [
-      {
-        fill: true,
-        data: diagramData.map((item) => Math.round(item.main.temp)), // Replace with your data
-        borderColor: "rgba(222, 150, 18, 1)",
-        backgroundColor: "rgba(222, 150, 18, 0.5)",
-        datalabels: {
-          color: (context) => {
-            return context.dataIndex === hitedIndex ? 'white' : 'grey';
-          },
-        },
-      },
-    ],
-  };
 
   const handleGetData = async (event) => {
     const chart = chartRef.current;
@@ -150,17 +135,35 @@ export function DashBoard() {
     );
     if (points.length) {
       const firstPoint = points[0];
-      
       const index = firstPoint.index;
       const label = chart.data.labels[firstPoint.index];
       const value =
         chart.data.datasets[firstPoint.datasetIndex].data[firstPoint.index];
-      // dispatch(handleDiagram(index))
-      console.log("data check",chart.data.datasets[firstPoint.datasetIndex])
-      console.log({ index, label, value });
       await dispatch(setDefaultIndex(index));
       dispatch(handleInfoByPoint(index));
     }
+  };
+
+  // Render the chart only when data is loaded
+  if (!isDataLoaded) {
+    return <div>Loading...</div>; // Placeholder for loading state
+  }
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        fill: true,
+        data: diagramData.map((item) => Math.round(item.main.temp)),
+        borderColor: "rgba(222, 150, 18, 1)",
+        backgroundColor: "rgba(222, 150, 18, 0.5)",
+        datalabels: {
+          color: (context) => {
+            return context.dataIndex === hitedIndex ? "white" : "grey";
+          },
+        },
+      },
+    ],
   };
 
   return (
