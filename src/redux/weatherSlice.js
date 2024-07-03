@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { mergedArray } from "../logic/logic";
+import { mergedArray , groupedData} from "../logic/logic";
 import { getDayAndMonth, findMaxTemp, findMinTemp } from "../logic/logic";
 
 const initialState = {
@@ -70,9 +70,9 @@ export const weatherSlice = createSlice({
 
           return { ...item, date: getDayAndMonth(item) };
         });
-
         // merge each 8 items into 1 array
-        let mergedData = mergedArray(data);
+        console.log(data);
+        let mergedData = groupedData(data);
         // console.log(mergedData.length); // check length
         console.log("merged data ", mergedData);
         state.data = mergedData;
