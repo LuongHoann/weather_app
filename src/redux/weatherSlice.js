@@ -51,7 +51,6 @@ export const weatherSlice = createSlice({
       state.diagramData = state.data[action.payload];
       state.dataByPoint = state.diagramData[0];
       state.defaultIndex = 0;
-      
     },
     handleInfoByPoint: (state, action) => {
       state.dataByPoint = state.diagramData[action.payload];

@@ -115,15 +115,15 @@ export function DashBoard() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (weatherData && weatherData[0]) {
+    if (diagramData) {
       setLabels(
-        weatherData[0].map(
+        diagramData.map(
           (item) => new Date(item.dt * 1000).toString().slice(16, 21)
         )
       );
       setIsDataLoaded(true); // Mark data as loaded once it's fetched
     }
-  }, [weatherData]);
+  }, [weatherData,diagramData]);
 
   const handleGetData = async (event) => {
     const chart = chartRef.current;
