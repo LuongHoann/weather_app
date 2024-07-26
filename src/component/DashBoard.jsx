@@ -34,7 +34,7 @@ const backgroundPlugin = {
       chartArea: { top, bottom, right, left },
     } = chart;
     ctx.fillStyle = "#000";
-    ctx.fillRect(-30, top - 30, right + 60, bottom + 60);
+    ctx.fillRect(-30, top - 50, right + 60, bottom + 60);
   },
 };
 
@@ -139,6 +139,7 @@ export function DashBoard() {
       const label = chart.data.labels[firstPoint.index];
       const value =
         chart.data.datasets[firstPoint.datasetIndex].data[firstPoint.index];
+    
       await dispatch(setDefaultIndex(index));
       dispatch(handleInfoByPoint(index));
     }

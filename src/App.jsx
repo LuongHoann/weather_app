@@ -12,6 +12,7 @@ export default function App() {
   let lat = useSelector((state) => state.weather.lat);
   let lon = useSelector((state) => state.weather.lon);
   let dataByPoint = useSelector((state) => state.weather.dataByPoint);
+  console.log(dataByPoint);
   const dispatch = useDispatch();
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { mergedArray , groupedData} from "../logic/logic";
+import { groupedData} from "../logic/logic";
 import { getDayAndMonth, findMaxTemp, findMinTemp } from "../logic/logic";
 
 const initialState = {
@@ -92,6 +92,7 @@ export const weatherSlice = createSlice({
         state.diagramData = [];
         state.diagramData = mergedData[0];
         state.dataByPoint = state.diagramData[0];
+       
 
         // update the default value of diagram 
       })

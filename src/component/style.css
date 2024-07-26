@@ -50,7 +50,36 @@ h1 {
 .item { 
   border : 2px solid transparent;
   border-radius: 30px;
+  height: auto;
 }
-.item:active  { 
- border: 2px solid blue;
+
+.bg-gray { 
+  background-color:#303134;
+}
+img { 
+  width: 80px;
+}
+.flex { 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-col { 
+  flex-direction: column;
+}
+.right { 
+  align-items: flex-end;
+}
+
+.left { 
+  align-items: flex-start;
+}
+.header { 
+  padding: 30px 30px;
+
+  background-color: black;
+}
+.header p { 
+  margin: 0.5rem 0rem;
 }
