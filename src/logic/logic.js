@@ -39,7 +39,6 @@ export const getDataHours = (time) => {
 };
 
 export function groupedData(data) {
-  console.log(data)
   let Raw = [];
   let sub = [];
     for ( let i = 0 ; i < data.length ; i++){ 
@@ -55,11 +54,9 @@ export function groupedData(data) {
 
     }
   if (Raw[0].length < 8) {
-    console.log(Raw[1]);
     Raw[0] = Raw[0].concat(
       Raw[1].slice(0, - Raw[0].length)
     );
 }
-console.log(Raw)
 return Raw;
 }

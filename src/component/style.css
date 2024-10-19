@@ -83,3 +83,20 @@ img {
 .header p { 
   margin: 0.5rem 0rem;
 }
+/*  */
+.options { 
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 1rem;
+  gap:1rem
+}
+.form_options { 
+  display: flex;
+  gap:0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+label { 
+  margin-right: 8px;
+}

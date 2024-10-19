@@ -12,10 +12,12 @@ const initialState = {
   lon: 105.804817,
   isLoading: false,
   isError: false,
+  units:"imperial"  // imperial :F  ; metric : C    
 };
-export const fetchWeatherData = createAsyncThunk("weather_data", async () => {
+export const fetchWeatherData = createAsyncThunk("weather_data", async ({lat,lon,units}) => {
+  console.log(lat,lon,units)
   const response = await fetch(
-    `https://api.openweathermap.org/data/2.5/forecast?lat=${initialState.lat}&lon=${initialState.lon}&appid=fb33e8951c8f73a0ca85687965d35b83&units=metric`,
+    `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=fb33e8951c8f73a0ca85687965d35b83&units=${units}`,
     {
       method: "GET",
     }
@@ -26,17 +28,24 @@ export const fetchWeatherData = createAsyncThunk("weather_data", async () => {
   }
 
   const data = await response.json();
+  console.log(data)
   return data;
 });
+
+
 
 export const weatherSlice = createSlice({
   name: "weather",
   initialState,
   reducers: {
     handleLatLong(state, action) {
-      const { lat, lon } = action.payload;
-      state.lat = lat;
-      state.lon = lon;
+      const { lat, lon , units } = action.payload;
+      console.log("payload",action.payload)
+      if(lat && lon){
+        state.lat = lat;
+        state.lon = lon;
+      }
+      state.units = units
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
@@ -95,6 +104,7 @@ export const weatherSlice = createSlice({
        
 
         // update the default value of diagram 
+        state.isLoading = false
       })
       .addCase(fetchWeatherData.rejected, (state, action) => {
         state.isLoading = false;
