@@ -16,7 +16,10 @@ const Options = memo(() => {
 
   const handleChangeFormData = useCallback((e) => {
     const { name, value } = e.target;
-    setForm(prevForm => ({ ...prevForm, [name]: value }));
+    setForm(prevForm => {
+     return { ...prevForm, [name]: value }
+    });
+    
   }, []);
 
   const debouncedHandleChange = useDebounce(handleChangeFormData, 300);

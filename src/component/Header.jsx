@@ -2,9 +2,11 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 
+
 export const Header = () => {
   let units = useSelector((state) => state.weather.units);
-    let dataByPoint = useSelector((state)=> state.weather.dataByPoint)
+  let dataByPoint = useSelector((state)=> state.weather.dataByPoint)
+  let name  = useSelector((state)=> state.weather.locate)
 
   if (dataByPoint.length === 0) {
     return <p>Loading...</p>;
@@ -23,6 +25,7 @@ export const Header = () => {
         </p>
         <b>Wind : {Math.round((dataByPoint.wind.speed / 1000) * 3600)} km/h </b>
       </div>
+      <p className="self-start" style={{fontSize: "2rem"}}>Forecast of  <b>{name}</b></p>
       <div className="flex right flex-col">
         <h4>Weather of {dataByPoint.date}</h4>
         <p> {dataByPoint.weather[0].description}</p>

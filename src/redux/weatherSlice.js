@@ -7,6 +7,7 @@ const initialState = {
   subdata: [],
   diagramData: [],
   dataByPoint: [],
+  locate:"",
   defaultIndex:0,
   lat: 21.028511,
   lon: 105.804817,
@@ -69,6 +70,8 @@ export const weatherSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchWeatherData.fulfilled, (state, action) => {
+        // get locate 
+        state.locate = action.payload.city.name 
         // add date property
         let data = action.payload.list.map((item) => {
           delete item.clouds;
