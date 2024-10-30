@@ -8,7 +8,7 @@ export default function Item(props) {
   return (
     <div
       className={`item ${
-        dataByPoint.date === props.data.date ? "bg-gray" : ""
+        dataByPoint.date === props.data.date ? "bg-items" : ""
       }`}
       style={{ flexGrow: 1 }}
       onClick={props.onClick}

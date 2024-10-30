@@ -10,6 +10,7 @@ import Options from "./component/Options";
 import Login from "./component/Login";
 import { Bounce, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import FavouriteLocation from "./component/FavouriteLocation";
 
 // Inside your App component
 
@@ -63,5 +64,6 @@ export default function App() {
         transition={Bounce}
       />
     </>
+    // <FavouriteLocation/>
   );
 }

@@ -13,7 +13,7 @@ export const Header = () => {
   }
   return (
     <div className="flex header">
-      <div className="flex left flex-col">
+      <div className="flex left flex-col white">
         <img
           src={`https://openweathermap.org/img/wn/${dataByPoint?.weather[0].icon}@2x.png`}
           alt="weather icon"
@@ -25,8 +25,8 @@ export const Header = () => {
         </p>
         <b>Wind : {Math.round((dataByPoint.wind.speed / 1000) * 3600)} km/h </b>
       </div>
-      <p className="self-start" style={{fontSize: "2rem"}}>Forecast of  <b>{name}</b></p>
-      <div className="flex right flex-col">
+      <p className="self-start white" style={{fontSize: "2rem"}}>Forecast of  <b>{name}</b></p>
+      <div className="flex right flex-col white">
         <h4>Weather of {dataByPoint.date}</h4>
         <p> {dataByPoint.weather[0].description}</p>
         <p>Humidity : {dataByPoint.main.humidity} % </p>

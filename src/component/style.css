@@ -53,8 +53,9 @@ h1 {
   height: auto;
 }
 
-.bg-gray { 
-  background-color:#303134;
+.bg-items { 
+  color-scheme: light dark;
+	background-color: rgb(203 213 225);
 }
 img { 
   width: 80px;
@@ -184,4 +185,13 @@ label {
 
 .pointer { 
   cursor: pointer;
+}
+
+/* @ meadia */
+
+
+@media (prefers-color-scheme: dark){
+  .bg-items{ 
+    background-color:#3b3b3b
+  }
 }

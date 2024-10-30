@@ -36,6 +36,8 @@ export const isEmail = (email) => {
     : { errorMessage: "Invalid email format", title: "Invalid Email" };
 };
 
+
+// 
 export const isPasswordCorrect = (password, re_password) => {
   if (!password || !re_password) {
     return {
