@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./style.css"; // Make sure to create and import your CSS file
 import {
   isEmail,
-  numberInRange,
   notEmptyString,
   isPasswordCorrect,
 } from "../logic/checkform";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -83,10 +82,32 @@ const Login = () => {
         }),
       });
       let data = await res.json()
-      if (data.EC) {
+      if (!data.EC) {
         toast.success("Register succesful !");
         // change to login form if register success
         setRegister(false);
+      } else {
+        toast.error(data.EM);
+      }
+    }
+    else { 
+      const res = await fetch(import.meta.env.VITE_USER_LOGIN_URL, {
+        method: "POST", // Assuming you are sending a POST request
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          // email: formData.email,
+          password: formData.password,
+        }),
+      });
+      let data = await res.json()
+      if (!data.EC) {
+        toast.success("Login succesful !");
+        // change to login form if register success
+        setRegister(false);
+        setIsShow(false)
       } else {
         toast.error(data.EM);
       }

@@ -41,7 +41,7 @@ export const weatherSlice = createSlice({
   reducers: {
     handleLatLong(state, action) {
       const { lat, lon , units } = action.payload;
-      console.log("payload",action.payload)
+      // console.log("payload",action.payload)
       if(lat && lon){
         state.lat = lat;
         state.lon = lon;
@@ -85,7 +85,7 @@ export const weatherSlice = createSlice({
         // console.log(data);
         let mergedData = groupedData(data);
         // console.log(mergedData.length); // check length
-        // console.log("merged data ", mergedData);
+        console.log("merged data ", mergedData);
         state.data = mergedData;
 
         // subdata

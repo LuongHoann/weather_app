@@ -22,7 +22,7 @@ export default function Item(props) {
         <sup>o</sup>
         {units === "metric" ? "C" : "F"} - {Math.ceil(props.data.max_temp)}
         <sup>o</sup>
-        {units === "metric" ? "C" : "F"}{" "}
+        {units === "metric" ? "C" : "F"}
       </p>
       <p>{props.data.weather}</p>
     </div>
