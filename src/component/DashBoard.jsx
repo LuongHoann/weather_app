@@ -34,7 +34,7 @@ const backgroundPlugin = {
       chartArea: { top, bottom, right, left },
     } = chart;
     ctx.fillStyle = "#000";
-    ctx.fillRect(-30, top - 50, right + 60, bottom + 60);
+    ctx.fillRect(-30, top - 50, right + 60, bottom + 80);
   },
 };
 
@@ -78,7 +78,7 @@ const options = {
       },
     },
     y: {
-      suggestedMin: 10,
+      suggestedMin: -30,
       suggestedMax: 40,
       ticks: {
         display: false,

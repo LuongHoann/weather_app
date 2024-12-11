@@ -1,12 +1,15 @@
 import React, { memo, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchWeatherData, handleLatLong } from "../redux/weatherSlice";
 
 const FavouriteLocation = () => {
+  const dispatch = useDispatch()
   const [favouriteUserData, setFavouriteUserData] = useState([]);
 
   useEffect(() => {
     const fetchWeatherData = async () => {
       let res = await fetch(
-        "https://65bba99152189914b5bccfcc.mockapi.io/applicant"
+        "https://6540fa4445bedb25bfc2f9e6.mockapi.io/yami/bang1"
       );
       if (res.ok) {
         let data = await res.json();
@@ -17,26 +20,27 @@ const FavouriteLocation = () => {
     fetchWeatherData();
   }, []);
 
+  console.log(favouriteUserData)
   return (
-    <table>
-      <thead>
-        <tr>
-          {favouriteUserData.length > 0 &&
-            Object.keys(favouriteUserData[0]).map((key) => (
-              <th key={key}>{key}</th>
-            ))}
-        </tr>
-      </thead>
-      <tbody>
-        {favouriteUserData.map((item, index) => (
-          <tr key={index}>
-            {Object.values(item).map((value, i) => (
-              <td key={i}>{value}</td>
-            ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <div className="favourite-location">
+      <h3>Your favourite Location</h3>
+      <select className="favourite-location_select" onChange={(e)=> { 
+        const selectedIndex = e.target.selectedIndex
+        if(selectedIndex !== 0 ){ 
+            const selectedItem = favouriteUserData[selectedIndex-1]
+            dispatch(fetchWeatherData({lat: selectedItem.lat , lon: selectedItem.long}))
+            dispatch(handleLatLong({lat: selectedItem.lat , lon: selectedItem.long}))
+        }
+      }}>
+        {
+          favouriteUserData && favouriteUserData.length > 0 ?
+           favouriteUserData.map(
+            (item) => (
+            <option key={item.id} className="favourite-location_option">{item.cityname} {item.lat} | {item.long}</option>
+          )) : "there is no favourite location !"
+        }
+      </select>
+    </div>
   );
 };
 

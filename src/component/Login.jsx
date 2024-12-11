@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./style.css"; // Make sure to create and import your CSS file
 import {
   isEmail,
@@ -7,6 +7,7 @@ import {
 } from "../logic/checkform";
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { useUserContext } from "../userContext/userContext";
 
 
 const Login = () => {
@@ -19,6 +20,7 @@ const Login = () => {
     re_password: "",
   });
 
+  const { username , setUsername} = useUserContext()
   // Handle showing the form
   const handleSetIsShow = () => {
     setIsShow(true);
@@ -47,7 +49,6 @@ const Login = () => {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData)
       if (isRegister) {
       const emailCheck = isEmail(formData.email);
       const usernameCheck = notEmptyString(formData.username);
@@ -103,25 +104,34 @@ const Login = () => {
         }),
       });
       let data = await res.json()
+
       if (!data.EC) {
         toast.success("Login succesful !");
         // change to login form if register success
         setRegister(false);
         setIsShow(false)
+        // set username for userContext
+        setUsername(formData.username)
       } else {
         toast.error(data.EM);
       }
     }
   };
-
+   
   return (
     <div>
-      <div className="flex justify-center">
-        <p>You can store your favourite location when </p>
-        <button onClick={handleSetIsShow} style={{ marginLeft: "14px" }}>
-          Login
-        </button>
-      </div>
+       <div className="flex justify-center">
+      {username.length > 0 ? (
+        <p>Hello {username}, you wellcome ! </p>
+      ) : (
+        <p>
+          You can store your favourite location when
+          <button onClick={handleSetIsShow} style={{ marginLeft: "14px" }}>
+            Login
+          </button>
+        </p>
+      )}
+    </div>
 
       {isShow && (
         <div className="bg_login_form">

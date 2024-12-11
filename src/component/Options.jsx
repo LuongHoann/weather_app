@@ -8,9 +8,9 @@ import { fetchWeatherData, handleLatLong } from '../redux/weatherSlice';
 import { memo } from 'react';
 
 const Options = memo(() => {
+    let lat = useSelector((state)=> state.weather.lat)
+    let lon = useSelector((state)=> state.weather.lon)
     const dispatch = useDispatch()
-    let defalutLat = 21.028511;
-    let defalutLong = 105.804817;
     // let defa
   const [form, setForm] = useState(defaultForm);
 
@@ -27,10 +27,9 @@ const Options = memo(() => {
   const handleSubmitForm = (event) => {
     event.preventDefault();
     const { units, lat, lon } = form;
-    console.log("data",form)
     if(lat == "" && lon == ""){
-        dispatch(handleLatLong({defalutLat,defalutLong,units}))
-        dispatch(fetchWeatherData({lat:defalutLat,lon:defalutLong,units}))
+        dispatch(handleLatLong())
+        dispatch(fetchWeatherData())
     } else  if (parseFloat(lat) === +lat && parseFloat(lon) === +lon) {
         dispatch(handleLatLong({lat,lon,units}))
         dispatch(fetchWeatherData({lat,lon,units}))
@@ -55,6 +54,7 @@ const Options = memo(() => {
             type="text"
             name="lat"
             onChange={debouncedHandleChange}
+            defaultValue={lat}
           />
         </div>
         <div className="">
@@ -63,6 +63,7 @@ const Options = memo(() => {
             type="text"
             name="lon"
             onChange={debouncedHandleChange}
+            defaultValue={lon}
           />
         </div>
         <button type="submit">Confirm</button>

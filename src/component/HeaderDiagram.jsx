@@ -25,7 +25,7 @@ export const Header = () => {
         </p>
         <b>Wind : {Math.round((dataByPoint.wind.speed / 1000) * 3600)} km/h </b>
       </div>
-      <p className="self-start white" style={{fontSize: "2rem"}}>Forecast of  <b>{name}</b></p>
+      <p className="self-start white" style={{fontSize: "2rem"}}>Forecast of  <b>{name || "Unknow city"}</b></p>
       <div className="flex right flex-col white">
         <h4>Weather of {dataByPoint.date}</h4>
         <p> {dataByPoint.weather[0].description}</p>
