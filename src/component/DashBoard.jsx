@@ -78,7 +78,7 @@ const options = {
       },
     },
     y: {
-      suggestedMin: -30,
+      suggestedMin: 0,
       suggestedMax: 40,
       ticks: {
         display: false,

@@ -6,11 +6,8 @@ import Loading from "./component/Loading";
 import { DashBoard } from "./component/DashBoard";
 import { Header } from "./component/HeaderDiagram";
 import "./App.css";
-import Options from "./component/Options";
-import Login from "./component/Login";
 import { Bounce, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import FavouriteLocation from "./component/FavouriteLocation";
 import { UserProvider } from "./userContext/userContext";
 import HeaderPage from "./component/HeaderPage";
 

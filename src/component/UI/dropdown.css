@@ -1,0 +1,23 @@
+.dropdown-container{ 
+    width: 100%;
+    position: relative;
+}
+
+.dropdown-list { 
+    padding: 0 1rem;
+    max-height: 150px;
+    overflow-y: scroll;
+    min-height: 40px;
+}
+
+.dropdown-item { 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor:pointer;
+}
+
+
+.dropdown-item ins{ 
+    text-underline-offset: 4px;
+}

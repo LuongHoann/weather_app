@@ -2,6 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { groupedData } from "../logic/logic";
 import { getDayAndMonth, findMaxTemp, findMinTemp } from "../logic/logic";
 
+const defaultLatitude = import.meta.env.VITE_DEFAULT_LAT;
+const defaultLongtitude = import.meta.env.VITE_DEFAULT_LON;
+const defaultUnits = import.meta.env.VITE_DEFAULT_UNITS;
+
 const initialState = {
   data: [],
   subdata: [],
@@ -9,23 +13,21 @@ const initialState = {
   dataByPoint: [],
   locate: "",
   defaultIndex: 0,
-  lat: import.meta.env.VITE_DEFAULT_LAT,
-  lon: import.meta.env.VITE_DEFAULT_LON,
+  lat: defaultLatitude,
+  lon: defaultLongtitude,
   isLoading: false,
   isError: false,
-  units: import.meta.env.VITE_DEFAULT_UNITS, // imperial :F  ; metric : C
+  units: defaultUnits, // imperial :F  ; metric : C
 };
 export const fetchWeatherData = createAsyncThunk(
   "weather_data",
   async ({ lat, lon, units }) => {
     const response = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${
-        lat || import.meta.env.VITE_DEFAULT_LAT
+        lat || defaultLatitude
       }&lon=${
-        lon || import.meta.env.VITE_DEFAULT_LON
-      }&appid=fb33e8951c8f73a0ca85687965d35b83&units=${
-        units || import.meta.env.VITE_DEFAULT_UNITS
-      }`,
+        lon || defaultLongtitude
+      }&appid=fb33e8951c8f73a0ca85687965d35b83&units=${units || defaultUnits}`,
       {
         method: "GET",
       }
@@ -46,15 +48,18 @@ export const weatherSlice = createSlice({
   reducers: {
     handleLatLong(state, action) {
       const { lat, lon, units } = action.payload;
+      console.log("hi",lat,lon,units);
+
       if (lat && lon) {
         state.lat = lat;
         state.lon = lon;
       } else {
         // return to default value
-        (state.lat = import.meta.env.VITE_DEFAULT_LAT),
-          (state.lon = import.meta.env.VITE_DEFAULT_LON);
+        (state.lat = defaultLatitude), (state.lon = defaultLongtitude);
       }
-      state.units = units;
+      if (units) {
+        state.units = units;
+      }
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;

@@ -3,8 +3,6 @@ import { useSelector } from "react-redux";
 export default function Item(props) {
   let dataByPoint = useSelector((state) => state.weather.dataByPoint);
   let units = useSelector((state) => state.weather.units);
-  console.log(units)
-  // console.log("this is props" , props )
   return (
     <div
       className={`item ${
