@@ -115,8 +115,8 @@ const MergedComponent = ({ username }) => {
           </div>
           <div className="form-control">
             <button type="submit">Confirm</button>
-            <button type="button">Add </button>
-            <button type="button">Delete</button>
+            {/* <button type="button">Add </button>
+            <button type="button">Delete</button> */}
           </div>
         </form>
       </div>

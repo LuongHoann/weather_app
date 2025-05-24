@@ -12,7 +12,7 @@ export const Header = () => {
     return <p>Loading...</p>;
   }
   return (
-    <div className="flex header">
+    <div className="flex header " style={{ justifyContent: "space-between" }}>
       <div className="flex left flex-col white">
         <img
           src={`https://openweathermap.org/img/wn/${dataByPoint?.weather[0].icon}@2x.png`}
