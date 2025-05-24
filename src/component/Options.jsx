@@ -30,21 +30,21 @@ const MergedComponent = ({ username }) => {
 
   // Fetch favourite locations
   useEffect(() => {
-    const fetchFavouriteLocations = async () => {
-      try {
-        const res = await fetch(
-          "https://6540fa4445bedb25bfc2f9e6.mockapi.io/yami/bang1"
-        );
-        if (res.ok) {
-          const data = await res.json();
-          setFavouriteUserData(data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch favorite locations", error);
-      }
-    };
+    // const fetchFavouriteLocations = async () => {
+    //   try {
+    //     const res = await fetch(
+    //       "https://6540fa4445bedb25bfc2f9e6.mockapi.io/yami/bang1"
+    //     );
+    //     if (res.ok) {
+    //       const data = await res.json();
+    //       setFavouriteUserData(data);
+    //     }
+    //   } catch (error) {
+    //     console.error("Failed to fetch favorite locations", error);
+    //   }
+    // };
 
-    fetchFavouriteLocations();
+    // fetchFavouriteLocations();
   }, []);
 
   // Handle form input changes
