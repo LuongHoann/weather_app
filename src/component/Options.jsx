@@ -48,15 +48,14 @@ const MergedComponent = ({ username }) => {
   }, []);
 
   // Handle form input changes
-  const handleChangeFormData = useCallback((e) => {
+  const handleChangeFormData = ((e) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({
       ...prevForm,
       [name]: value,
     }));
-  }, []);
-
-  const debouncedHandleChange = useDebounce(handleChangeFormData, 300);
+  })
+  
 
   // Handle form submission
   const handleSubmitForm = (event) => {
@@ -98,19 +97,19 @@ const MergedComponent = ({ username }) => {
           <div>
             <label htmlFor="lat">Latitude</label>
             <input
-              type="text"
+              type="number"
               name="lat"
               value={form.lat}
-              onChange={debouncedHandleChange}
+              onChange={handleChangeFormData}
             />
           </div>
           <div>
             <label htmlFor="lon">Longitude</label>
             <input
-              type="text"
+              type="number"
               name="lon"
               value={form.lon}
-              onChange={debouncedHandleChange}
+              onChange={handleChangeFormData}
             />
           </div>
           <div className="form-control">
